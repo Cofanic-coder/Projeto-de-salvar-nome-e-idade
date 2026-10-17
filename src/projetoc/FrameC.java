@@ -101,10 +101,22 @@ public class FrameC extends javax.swing.JFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         String nome = txtnome.getText();
-        String idadetxt = txtidade.getText();
+        String idade = txtidade.getText();
         
-        boolean temletra = false;
-       for (char c : idadetxt.toCharArray())
+        
+       boolean temnumero = false;
+       for(char c : nome.toCharArray())
+       {
+           if (Character.isDigit(c))
+           {
+               temnumero = true;
+               break;
+           }
+       }
+        
+        
+       boolean temletra = false;
+       for (char c : idade.toCharArray())
        {
            if (Character.isLetter(c))
            {
@@ -112,11 +124,18 @@ public class FrameC extends javax.swing.JFrame {
                break;
            }
        }
+       
+      
         
         
-          if (nome.isEmpty() || temletra == true ) 
+          if (nome.isBlank()|| idade.isBlank()
+                  || temletra == true || temnumero == true ) 
             {
                 JOptionPane.showMessageDialog(null, "informações invalidas");
+                
+                txtnome.setText("");
+                txtidade.setText("");
+                
                 return;
             }
           else 
@@ -130,7 +149,7 @@ public class FrameC extends javax.swing.JFrame {
           JPanel linha = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
           linha.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
           
-          JLabel nei = new JLabel("Nome: " + nome + "   Idade: " + idadetxt);
+          JLabel nei = new JLabel("Nome: " + nome + "   Idade: " + idade);
           linha.add(nei);
           
           JButton remover = new JButton("remover");
